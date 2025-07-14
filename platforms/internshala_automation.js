@@ -134,4 +134,22 @@ async function addProject(page, project) {
         await browser.close();
     });
 })(); 
+async function runResumeUpdater(imagePath) {
+    const extractedProjects = await extractProjectsFromImage(imagePath);
+
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
+    await page.goto(INTERN_LOGIN_URL, { waitUntil: 'networkidle2' });
+
+    console.log('Please log in manually and press Enter in terminal...');
+    await new Promise(resolve => process.stdin.once('data', resolve));
+
+    // [Insert the rest of your existing logic here]
+
+    await browser.close();
+    return { success: true, addedProjects: extractedProjects };
+}
+
+module.exports = { runResumeUpdater };
+
 // mohantysubhashree2005@gmail.com
